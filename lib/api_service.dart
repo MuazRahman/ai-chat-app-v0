@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 import 'message_model.dart';
 
 class ApiService {
-  static const String _apiKey = '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';
+  static const String _apiKey = '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';
   static const String _apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
 
   final Logger _logger = Logger();
@@ -33,7 +33,7 @@ class ApiService {
       },
       body: jsonEncode({
         'messages': messagesForApi,
-        'model': 'meta-llama/llama-4-scout-17b-16e-instruct',
+        'model': 'meta-llama/llama-4-scout-17b-16e-instruct', // Model may occur issue. Change it when needed by selecting another model and the model will found view code
       }),
     );
 
