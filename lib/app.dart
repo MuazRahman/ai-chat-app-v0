@@ -13,7 +13,7 @@ class _ChatAppState extends State<ChatApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'AI Chat',
+      title: 'AI Chat Assistant',
       home: ChatPage(),
     );
   }

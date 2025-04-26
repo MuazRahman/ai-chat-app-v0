@@ -1,15 +1,21 @@
+import 'package:ai_chat_app/message_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'chat_controller.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
+  @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
   final ChatController _chatController = Get.put(ChatController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('AI Chat')),
+      appBar: AppBar(title: Text('AI Chat Assistant')),
       body: Column(
         children: [
           Expanded(
@@ -66,5 +72,10 @@ class ChatPage extends StatelessWidget {
         ],
       ),
     );
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    _chatController.dispose();
   }
 }
