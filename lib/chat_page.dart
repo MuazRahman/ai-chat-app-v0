@@ -99,6 +99,7 @@ class _ChatPageState extends State<ChatPage> {
                           hintText: 'Type a message',
                         ),
                         style: textStyle,
+                        autocorrect: false,
                       ),
                     ),
                     const SizedBox(width: 10),
