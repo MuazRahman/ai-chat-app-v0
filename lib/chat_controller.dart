@@ -38,7 +38,7 @@ class ChatController extends GetxController {
     _initialized = true; // Setup done immediately because system prompt is ready
   }
 
-  void sendMessage() async {
+  Future <void> sendMessage() async {
     if (!_initialized) return;
 
     final messageText = _textController.text.trim();

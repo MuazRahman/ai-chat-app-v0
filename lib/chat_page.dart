@@ -13,6 +13,24 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final ChatController _chatController = Get.put(ChatController());
+  final ScrollController _scrollController = Get.put(ScrollController());
+
+  @override
+  void initState() {
+    super.initState();
+    // Listen for changes and scroll to bottom
+    ever(_chatController.messages as RxInterface<Object?>, (_) {
+      Future.delayed(Duration(milliseconds: 100), () {
+        if (_scrollController.hasClients) {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +55,7 @@ class _ChatPageState extends State<ChatPage> {
               Expanded(
                 child: Obx(
                   () => ListView.builder(
+                    controller: _scrollController,
                     itemCount: _chatController.messages.length,
                     itemBuilder: (context, index) {
                       final message = _chatController.messages[index];
