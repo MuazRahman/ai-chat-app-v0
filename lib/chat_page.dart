@@ -1,11 +1,12 @@
 import 'package:ai_chat_app/assets_path.dart';
-import 'package:ai_chat_app/message_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'chat_controller.dart';
 
 class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
+
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
@@ -15,47 +16,51 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle? textStyle = Theme.of(context).textTheme.titleSmall;
+
     return Stack(
       children: [
         Positioned.fill(
           child: ColorFiltered(
             colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(0.1), // 0.4 = 40% dark
+              Colors.black.withAlpha(25), // withOpacity(0.4) = 40% dark
               BlendMode.darken,
             ),
-            child: Image.asset(
-              AssetsPath.backgroundImage,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AssetsPath.backgroundImage, fit: BoxFit.cover),
           ),
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(title: Text('AI Chat Assistant', style: TextStyle(fontWeight: FontWeight.w600),),backgroundColor: Colors.white,),
+          appBar: AppBar(title: const Text('AI Chat Assistant')),
           body: Column(
             children: [
               Expanded(
                 child: Obx(
-                      () => ListView.builder(
+                  () => ListView.builder(
                     itemCount: _chatController.messages.length,
                     itemBuilder: (context, index) {
                       final message = _chatController.messages[index];
                       return Align(
                         alignment:
-                        message.isMe
-                            ? Alignment.centerRight
-                            : Alignment.centerLeft,
+                            message.isMe
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
                         child: Container(
-                          margin: EdgeInsets.all(10),
-                          padding: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: message.isMe ? Colors.blue : Colors.grey,
+                            color:
+                                message.isMe
+                                    ? Colors.black45.withAlpha(100)
+                                    : Colors.grey.shade200.withAlpha(120),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Text(
+                          child: SelectableText(
                             message.text,
                             style: TextStyle(
                               color: message.isMe ? Colors.white : Colors.black,
+                              fontSize: message.isMe ? 15.5 : 16,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
@@ -71,27 +76,22 @@ class _ChatPageState extends State<ChatPage> {
                     Expanded(
                       child: TextField(
                         controller: _chatController.textController,
-                        cursorColor: Colors.green,
-                        decoration: InputDecoration(
-                          fillColor: Colors.white, filled: true,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green)
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green)
-                          ),
+                        decoration: const InputDecoration(
                           hintText: 'Type a message',
-                          hintStyle: TextStyle(color: Colors.black45, fontWeight: FontWeight.w400)
                         ),
+                        style: textStyle,
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     ElevatedButton(
                       onPressed: _chatController.sendMessage,
-                      child: Text('Send', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 16),),
+                      style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(12),
+                        // Adjust padding for size
+                        backgroundColor: Colors.black38, // Button color
+                      ),
+                      child: Image.asset(AssetsPath.sendButtonIcon, width: 34),
                     ),
                   ],
                 ),
@@ -102,6 +102,7 @@ class _ChatPageState extends State<ChatPage> {
       ],
     );
   }
+
   @override
   void dispose() {
     super.dispose();

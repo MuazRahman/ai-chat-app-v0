@@ -5,8 +5,9 @@ import 'package:logger/logger.dart';
 import 'message_model.dart';
 
 class ApiService {
-  static const String _apiKey = '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';
+  static const String _apiKey = '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';
   static const String _apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
+  static const String _aIModel = 'meta-llama/llama-4-maverick-17b-128e-instruct'; // Model may occur issue. Change it when needed by selecting another model and the model will found view code
 
   final Logger _logger = Logger();
 
@@ -33,7 +34,7 @@ class ApiService {
       },
       body: jsonEncode({
         'messages': messagesForApi,
-        'model': 'meta-llama/llama-4-scout-17b-16e-instruct', // Model may occur issue. Change it when needed by selecting another model and the model will found view code
+        'model': _aIModel,
       }),
     );
 
@@ -46,7 +47,7 @@ class ApiService {
     } else {
       _logger.e('Status Code => ${response.statusCode}');
       _logger.e('Error Body => ${response.body}');
-      return 'Failed to get response';
+      return 'Failed to get response.😟 Try again letter!';
     }
   }
 }

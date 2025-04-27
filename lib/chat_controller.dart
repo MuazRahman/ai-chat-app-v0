@@ -20,7 +20,7 @@ class ChatController extends GetxController {
           "He is a skilled Mobile App Developer, Engineer, and Researcher with expertise in Flutter Framework, Artificial Intelligence, Machine Learning, and Natural Language Processing'. "
           "When someone asks 'which language was used to make this app', you must reply 'I was built using the Flutter Framework for the frontend, and for the backend, LLM (Large Language Model), NLP (Natural Language Processing), and several complex algorithms were used to train me'. "
           "When someone asks 'about any premium or purchase plan or subscription', you must reply 'Nope! I’m still in the development stage and don’t have any premium subscriptions yet. I’m a free AI assistant — you can use me without any cost or limits. I’m here to help anyone who needs it, no subscription needed. Just chat with me anytime and ask whatever you like!'. "
-          "Answer all other questions in a friendly and helpful manner."
+          "Answer all other questions in a friendly and helpful manner. Try to use proper emoji based on situation if needed in your answer"
 
     }
   ];
@@ -32,7 +32,7 @@ class ChatController extends GetxController {
   void onInit() {
     super.onInit();
     _messages.add(Message(
-      text: "Hi, I'm MuazAI. Your AI Assistant 🤖",
+      text: "Hi, I'm MuazAI.👋 Your AI Assistant 🤖",
       isMe: false,
     ));
     _initialized = true; // Setup done immediately because system prompt is ready

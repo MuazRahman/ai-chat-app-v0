@@ -2,5 +2,5 @@ import 'package:ai_chat_app/app.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(ChatApp());
+  runApp(const ChatApp());
 }
