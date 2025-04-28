@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'chat_page.dart';
 
 class ChatApp extends StatelessWidget {
@@ -12,12 +11,20 @@ class ChatApp extends StatelessWidget {
       title: "AI Chat Assistant",
       home: const ChatPage(),
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white24,
-          titleTextStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 28, color: Colors.black),
+          titleTextStyle: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 28,
+            color: Colors.white,
+          ),
         ),
-        textTheme: TextTheme(
-          titleSmall: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+        textTheme: const TextTheme(
+          titleSmall: TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: Colors.green,
@@ -25,23 +32,26 @@ class ChatApp extends StatelessWidget {
           selectionHandleColor: Colors.green.shade400,
         ),
         inputDecorationTheme: InputDecorationTheme(
-          fillColor: Colors.white,
           filled: true,
+          fillColor: Colors.white,
+          isDense: true, // <-- Better compact look
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14), // <-- Neat padding
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            borderSide: BorderSide(color: Colors.green),
+            borderRadius: BorderRadius.circular(28),
+            borderSide: const BorderSide(color: Colors.green),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            borderSide: BorderSide(color: Colors.green),
+            borderRadius: BorderRadius.circular(28),
+            borderSide: const BorderSide(color: Colors.green),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            borderSide: BorderSide(color: Colors.green),
+            borderRadius: BorderRadius.circular(28),
+            borderSide: const BorderSide(color: Colors.green),
           ),
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             color: Colors.black45,
             fontWeight: FontWeight.w400,
+            fontSize: 16,
           ),
         ),
       ),
