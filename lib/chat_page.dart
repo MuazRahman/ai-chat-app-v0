@@ -43,7 +43,7 @@ class _ChatPageState extends State<ChatPage> {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
           duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
+          curve: Curves.fastOutSlowIn,
         );
       }
     });
@@ -52,7 +52,6 @@ class _ChatPageState extends State<ChatPage> {
   Future<void> _sendMessage() async {
     if (_chatController.textController.text.trim().isEmpty) return;
     await _chatController.sendMessage();
-    // ❌ Removed typing simulation here
   }
 
   @override
@@ -183,6 +182,7 @@ class _ChatPageState extends State<ChatPage> {
               style: textStyle,
               autocorrect: false,
               maxLines: 1,
+              autofocus: true,
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.send,
               onSubmitted: (_) => _sendMessage(),

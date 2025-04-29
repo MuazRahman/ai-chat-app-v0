@@ -34,21 +34,18 @@ class ChatApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: Colors.white,
-          isDense: true, // <-- Better compact look
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14), // <-- Neat padding
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(28),
-            borderSide: const BorderSide(color: Colors.green),
-          ),
+          isDense: true,
+          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          border: InputBorder.none,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(28),
-            borderSide: const BorderSide(color: Colors.green),
+            borderSide: BorderSide(color: Colors.green),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(28),
-            borderSide: const BorderSide(color: Colors.green),
+            borderSide: BorderSide(color: Colors.green),
           ),
-          hintStyle: const TextStyle(
+          hintStyle: TextStyle(
             color: Colors.black45,
             fontWeight: FontWeight.w400,
             fontSize: 16,
