@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String assetsAppIcon = 'assets/app_icon.png';
   static const String assetsGreenHill = 'assets/green_hill.jpg';
   static const String assetsSend = 'assets/send.png';
   static const String assetsWhatsappBackground = 'assets/whatsapp_background.jpg';
