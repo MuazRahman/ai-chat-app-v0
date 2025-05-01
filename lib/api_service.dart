@@ -39,7 +39,7 @@ class ApiService {
       ...systemPrompt, // 👈 add system prompt at the top
       ...userMessages.map((message) {
         return {
-          'role': message.isMe ? 'user' : 'assistant',
+          'role': message.isMe ? 'user' : 'system',
           'content': message.text,
         };
       }),
