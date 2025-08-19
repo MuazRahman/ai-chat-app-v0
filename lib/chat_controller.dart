@@ -7,7 +7,8 @@ import 'message_model.dart';
 class ChatController extends GetxController {
   final _messages = <Message>[].obs;
   final _textController = TextEditingController();
-  final _apiService = ApiService();
+  final _isLoading = true.obs;
+  late final ApiService _apiService;
 
   bool _initialized = false;
   bool _systemPromptSent = false;
@@ -21,17 +22,36 @@ class ChatController extends GetxController {
 
   List<Message> get messages => _messages;
   TextEditingController get textController => _textController;
+  bool get isLoading => _isLoading.value;
 
   @override
   void onInit() {
     super.onInit();
-    _messages.add(
-      Message(
-        text: "Hi, I'm MuazAI.👋 Your AI Assistant 🤖",
-        isMe: false,
-      ),
-    );
-    _initialized = true;
+    _initializeApiService();
+  }
+
+  Future<void> _initializeApiService() async {
+    try {
+      _apiService = ApiService();
+      await _apiService.initialize();
+      
+      _messages.add(
+        Message(
+          text: "Hi, I'm MuazAI.👋 Your AI Assistant 🤖",
+          isMe: false,
+        ),
+      );
+      _initialized = true;
+    } catch (e) {
+      _messages.add(
+        Message(
+          text: "Failed to initialize. Please check your configuration.",
+          isMe: false,
+        ),
+      );
+    } finally {
+      _isLoading.value = false;
+    }
   }
 
   Future<void> sendMessage() async {

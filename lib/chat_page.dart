@@ -71,6 +71,19 @@ class _ChatPageState extends State<ChatPage> {
               child: Image.asset(
                 AssetsPath.backgroundImage,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  // Fallback to a solid color if image fails to load
+                  return Container(
+                    color: Colors.grey[300],
+                    child: const Center(
+                      child: Icon(
+                        Icons.image_not_supported,
+                        size: 64,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -89,7 +102,24 @@ class _ChatPageState extends State<ChatPage> {
                 children: [
                   Expanded(
                     child: Obx(
-                          () => ListView.builder(
+                          () => _chatController.isLoading
+                              ? const Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CircularProgressIndicator(),
+                                      SizedBox(height: 16),
+                                      Text(
+                                        'Initializing MuazAI...',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : ListView.builder(
                         controller: _scrollController,
                         itemCount: _chatController.messages.length,
                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -167,7 +197,7 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget _buildInputBar(TextStyle? textStyle) {
-    return Container(
+    return Obx(() => Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       color: Colors.transparent,
       child: Row(
@@ -186,22 +216,23 @@ class _ChatPageState extends State<ChatPage> {
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.send,
               onSubmitted: (_) => _sendMessage(),
+              enabled: !_chatController.isLoading,
             ),
           ),
           const SizedBox(width: 8),
           Container(
             decoration: BoxDecoration(
-              color: Colors.black54,
+              color: _chatController.isLoading ? Colors.grey : Colors.black54,
               shape: BoxShape.circle,
             ),
             child: IconButton(
               icon: const Icon(Icons.send_rounded, color: Colors.white),
-              onPressed: _sendMessage,
+              onPressed: _chatController.isLoading ? null : _sendMessage,
             ),
           ),
         ],
       ),
-    );
+    ));
   }
 
   @override
